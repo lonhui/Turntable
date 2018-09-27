@@ -16,7 +16,7 @@
 export default {
     data(){
         return{
-            rp:'1000',
+            rp:'1000',//消耗金币提示
         }
     },
     methods:{

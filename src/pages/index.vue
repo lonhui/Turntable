@@ -239,7 +239,7 @@ export default {
                     this.prizeName =prizeName
                     prizeName = prizeName.substring(3)
                     this.rotate(type,prizeName)
-                    this.usercoin = this.usercoin -1000
+                    this.usercoin = this.usercoin -1000 //消耗金币扣除
                 }
             }).catch((error)=>{
                 this.internetErrorShow = true
