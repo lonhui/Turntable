@@ -1,8 +1,9 @@
 <template>
+<div>
+    
     <div id="index">
         <div class="logo"><img src="../assets/logo.png"></div>
-        
-        <div id="turntable">
+      <div id="turntable">
             <div class="prize-list">
                 <div class="prize-item" v-for="(item,index) in rewardList" :key="index">
                     <!-- 奖项名称 -->
@@ -10,7 +11,7 @@
                         {{item.name}}
                     </div>
                     <!-- 奖项图标 -->
-                    <div class="prize-pic">
+                    <div class="prize-pic" v-show="item.icon">
                         <img src="../assets/c.png">
                     </div>
                 </div>
@@ -31,7 +32,6 @@
                 </tr>
             </table>
         </div>
-        
         <div class="footer">
             <div class="button_list">
                 <div class="button" v-show="buttonShow"><img src="../assets/button3.png" @click="openUsecoinShow"></div>
@@ -52,6 +52,7 @@
             <v-list v-if="listShow" @on-close='listShow = false'></v-list>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -95,7 +96,7 @@ export default {
                 // 不可中
                 {
                     icon:null,
-                    name:'1000',
+                    name:'Power Bank',
                 },
                 {
                     icon:'../assets/c.png',
@@ -104,7 +105,7 @@ export default {
                 // 不可中
                 {
                     icon:null,
-                    name:'15000',
+                    name:'USB',
                 },
                 {
                     icon:'../assets/c.png',
@@ -113,7 +114,7 @@ export default {
                 // 不可中
                 {
                     icon:null,
-                    name:'3000',
+                    name:'Caping Gift',
                 },
                 {
                     icon:'../assets/c.png',
@@ -122,7 +123,7 @@ export default {
                 // 不可中
                 {
                     icon:null,
-                    name:'500',
+                    name:'Speaker',
                 }
             ],
             user:{},
@@ -212,9 +213,8 @@ export default {
         },
         // 获取用户信息
         getUserInfo(){
-             this.$axios.post('http://ai.caping.co.id/v2/active/user/info?uid='+this.user.uid)
+             this.$axios.post(process.env.API_ROOT+'/active/user/info?uid='+this.user.uid)
             .then((response) => {
-                console.log(response);
                 if(response.data.code==301){
                     this.loginShow = true
                 }else{
@@ -226,9 +226,8 @@ export default {
         },
         //抽奖
         lottery(){
-            this.$axios.post('http://ai.caping.co.id/v2/active/ramadan?uid='+this.user.uid+'&device_id='+this.user.deviceId)
+            this.$axios.post(process.env.API_ROOT+'/active/ramadan?uid='+this.user.uid+'&device_id='+this.user.deviceId)
             .then((response) => {
-                console.log(response);
                 if(response.data.code == 306){
                     this.noCoinShow = true
                 }else if(response.data.code==301){
@@ -240,7 +239,7 @@ export default {
                     this.prizeName =prizeName
                     prizeName = prizeName.substring(3)
                     this.rotate(type,prizeName)
-                    this.usercoin = this.usercoin -5000
+                    this.usercoin = this.usercoin -1000
                 }
             }).catch((error)=>{
                 this.internetErrorShow = true
@@ -349,7 +348,7 @@ export default {
     0%{ transform:rotate(0deg) }
     100%{ transform:rotate(2190deg) }
 }
-img{
+ img{
     width: 100%;
     height: 100%
 }
@@ -363,7 +362,7 @@ img{
     margin: 0 auto;
     float: left;
     position: relative;
-    bottom:560px;
+    bottom: 560px;
     left: 335px
 }
 #turntable{
@@ -372,7 +371,7 @@ img{
     margin: 0 auto;
     background: url("../assets/Turntable.png") no-repeat;
     background-size: 100% 100%;
-    background-size:cover;
+    background-size: cover;
     border-radius: 300px
 }
 table{
@@ -395,7 +394,7 @@ table{
     color: #ffffff;
     padding-left: 10px
 }
-p{font-family:concertone}
+p{font-family: concertone}
 .coins img{width: 850px}
 .prize-pic{width: 30px}
 .prize-type,.prize-pic{float: left}
@@ -420,82 +419,84 @@ p{font-family:concertone}
  
 }
 .prize-list .prize-item:nth-child(2) {
-    top:140px;
+    top: 140px;
     left: 282px;
     transform: rotate(120deg);
     color: #ffffff
 }
 .prize-list .prize-item:nth-child(3) {
-    top:198px;
+    top: 198px;
     left: 333px;
     transform: rotate(150deg);
     color: #ffffff
 }
 .prize-list .prize-item:nth-child(4) {
-    top:260px;
+    top: 260px;
     left: 347px;
     transform: rotate(180deg);
     color: #ffffff
 }
 .prize-list .prize-item:nth-child(5) {
-    top:325px;
+    top: 325px;
     left: 335px;
     transform: rotate(210deg);
     color: #008Dc0
 }
 .prize-list .prize-item:nth-child(6) {
-    top:375px;
-    left: 293px;
+    top: 395px;
+    left: 268px;
     transform: rotate(240deg);
+    font-size: 24px;
     color: #ffffff
 }
 .prize-list .prize-item:nth-child(7) {
-    top:390px;
+    top: 390px;
     left: 228px;
     transform: rotate(270deg);
     color: #ffffff
 }
 .prize-list .prize-item:nth-child(8) {
-    top:385px;
-    left: 145px;
+    top: 370px;
+    left: 175px;
     transform: rotate(300deg);
     color: #ffffff
 }
 .prize-list .prize-item:nth-child(9) {
-    top:335px;
+    top: 335px;
     left: 90px;
     transform: rotate(330deg);
     color: #d73a63
 }
 .prize-list .prize-item:nth-child(10) {
-    top:265px;
-    left: 90px;
+    top: 265px;
+    left: 40px;
     transform: rotate(360deg);
+    font-size: 26px;
     color: #ffffff
 }
 .prize-list .prize-item:nth-child(11) {
-    top:190px;
+    top: 190px;
     left: 90px;
     transform: rotate(30deg);
     color: #ffffff
 }
 .prize-list .prize-item:nth-child(12) {
-    top:150px;
-    left: 170px;
+    top: 135px;
+    left: 140px;
     transform: rotate(60deg);
     color: #ffffff
 }
 .list{
     width: 260px;
-    height:85px;
+    height: 85px;
     background: url("../assets/btn_list.png") no-repeat;
     background-size: 100% 100%;
-    background-size:cover;
+    background-size: cover;
     text-align: center;
     font-size: 42px;
     line-height: 70px;
     font-weight: 600;
-    font-family:concertone;
+    font-family: concertone;
     color: #B90914;
     float: left;
     margin-left: 50px
@@ -503,7 +504,6 @@ p{font-family:concertone}
 .button{
     width: 260px;
     margin: 0 auto
-    /* float: left; */
 }
 .button_list{
     width: 600px;
@@ -520,4 +520,10 @@ p{font-family:concertone}
     border-bottom: #ffffff 2px solid;
     line-height: 50px
 }
+.aaa{
+    width: 100%;
+    height: 1330px;
+    background-color: #00AEEF
+}
+.asa{padding-top: 200px}
 </style>

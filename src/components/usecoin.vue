@@ -16,7 +16,7 @@
 export default {
     data(){
         return{
-            rp:'5,000',
+            rp:'1000',
         }
     },
     methods:{

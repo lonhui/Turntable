@@ -36,7 +36,7 @@ export default {
         //得到获奖名单
         getTabelData1(){
             this.loading = true
-            this.$axios.get('http://ai.caping.co.id/v2/active/win/list')
+            this.$axios.get(process.env.API_ROOT+'/active/win/list')
             .then((response)=>{
                 console.log(response);
                 //this.tableData = response.data.data
